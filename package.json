@@ -1,0 +1,22 @@
+{
+  "name": "keen-dolphin",
+  "version": "1.0.0",
+  "description": "simple book store",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/silentsoundz/keen-dolphin.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/silentsoundz/keen-dolphin/issues"
+  },
+  "homepage": "https://github.com/silentsoundz/keen-dolphin#readme",
+  "dependencies": {
+    "pug": "^2.0.0-beta11"
+  }
+}
