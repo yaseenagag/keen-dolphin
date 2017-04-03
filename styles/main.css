@@ -1,0 +1,13 @@
+body {
+  outline-color: 1px dotted red;
+}
+h1 {
+  font-size: 3em;
+  color: red;
+}
+.book {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
