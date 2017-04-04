@@ -3,21 +3,21 @@ DROP TABLE IF EXISTS books;
 CREATE TABLE books (
   id SERIAL PRIMARY KEY,
   title VARCHAR(255) NOT NULL,
-  image_url VARCHAR(255) NOT NULL
+  year INTEGER
 );
 
 DROP TABLE IF EXISTS authors;
 
 CREATE TABLE authors (
   id SERIAL PRIMARY KEY,
-  title VARCHAR(255) NOT NULL
+  name VARCHAR(255) NOT NULL
 );
 
 DROP TABLE IF EXISTS genres;
 
 CREATE TABLE genres (
   id SERIAL PRIMARY KEY,
-  title VARCHAR(255) NOT NULL
+  name VARCHAR(255) NOT NULL
 );
 
 DROP TABLE IF EXISTS book_authors;
@@ -25,7 +25,6 @@ DROP TABLE IF EXISTS book_authors;
 CREATE TABLE book_authors (
   book_id INTEGER NOT NULL,
   author_id INTEGER NOT NULL
-
 );
 
 DROP TABLE IF EXISTS book_genres;

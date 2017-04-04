@@ -4,7 +4,7 @@ process.env.PORT = process.env.PORT || '3123'
 global.chai = require('chai')
 global.expect = chai.expect
 global.chaiHttp = require('chai-http')
-global.server = require('../server')
+global.server = require('../index')
 
 chai.use(chaiHttp)
 chai.config.includeStack = true
@@ -40,9 +40,9 @@ global.request = (method, path, postBody) => {
     if (method === 'post' && postBody) req = req.send(postBody)
     req.end((error, response) => {
       if (error && error.status >= 500) {
-        console.log( error )
-        // console.warn('Server Error: '+response.body.error.message)
-        console.warn(response.body.error.stack)
+        console.log( error.message )
+        console.warn('Server Error:' + response.body.error.message)
+        // console.warn(response.body.error.stack)
         reject(error)
       }else{
         response.request = {

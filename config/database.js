@@ -1,5 +1,6 @@
 const pgp = require('pg-promise')()
-const pgpdb = pgp({ database: 'bookworm'})
+const pgpdb = pgp({ database:'bookworm'})
+const SQL = require( './sql_strings' )
 
 
 const resetDb = () => {
@@ -16,27 +17,30 @@ const deleteBook = (id) => {
   return pgpdb.query('DELETE from books where id = ${id}; DELETE from book_authors where book_id = ${id};DELETE from book_genres where book_id = ${id};')
 }
 
-const updateBook = (id, title, year) => {
-  return pgpdb.query('UPDATE books SET title = $1,year = $2 WHERE id = $3 ;', [title, year, id])
-}
+// const updateBook = (id, title, year) => {
+//   return pgpdb.query('UPDATE books SET title = $1,year = $2 WHERE id = $3 ;', [title, year, id])
+// }
 
 const createBook = (title, year) => {
-  return pgpdb.query(' insert into books( title, year) values($1, $2) returning id',[title, year]).then(result => result[0].id)
+  return pgpdb.query('insert into books( title, year ) values($1, $2) returning id', [title, year]).then(result => result[0].id)
 }
 
+
 const createAuthor = author => {
-  return pgpdb.query('insert into authors ( name ) values( $1 ) returning id', [author]).then(result => rsult[0].id)
+  return pgpdb.query('insert into authors( name ) values( $1 ) returning id', [author]).then(result => result[0].id)
 }
 
 const createGenre = genre => {
-  return pgpdb.query('insert into genres ( name ) values( $1 ) returning id', [genre]).then(result => result[0].id)
+  return pgpdb.query('insert into genres( name ) values( $1 ) returning id', [genre]).then(result => result[0].id)
 }
 
-const getGenres = () =>
-  pgpdb.any( "SELECT DISTINCT genres.name FROM genres ORDER BY name ASC LIMIT 10" )
 
-const joinBookAuthor =(bookId, authorId) => {
-  return pgpdb.query('insert into book_authors( book_in, author_id ) values( $1, $2 )', [ bookId, authorId ])
+const getGenres = () => {
+  return pgpdb.any( "SELECT DISTINCT genres.name FROM genres ORDER BY name ASC LIMIT 10" )
+}
+
+const joinBookAuthor = (bookId, authorId) => {
+  return pgpdb.query('insert into book_authors( book_id, author_id ) values( $1, $2 )', [ bookId, authorId ])
 }
 
 const joinBookGenre = (bookId, genreId) => {
@@ -46,7 +50,7 @@ const joinBookGenre = (bookId, genreId) => {
 const createWholeBook = book => {
   return Promise.all([
     createBook(book.title, book.year),
-    creteAuthor(book.author),
+    createAuthor(book.author),
     Promise.all(
       book.genres.sort().map(genre => {
         return createGenre(genre)
@@ -69,9 +73,10 @@ const createWholeBook = book => {
   })
 }
 
+
 const BOOKS_QUERY =
   `SELECT books.*,
-    (SELECT authors.name FROM authors, book_authors WHERE book_authors.book_id=books.id AND book_authors.author_id=authors.id LIMIT 1) AS author,
+    (SELECT authors.name FROM authors, book_authors WHERE book_authors.book_id=books.id AND book_authors.author_id=authors.id LIMIT 10) AS author,
     array(SELECT genres.name FROM genres, book_genres WHERE book_genres.book_id=books.id AND book_genres.genre_id=genres.id ORDER BY genres.name ASC) AS genres
   FROM books`
 
@@ -147,4 +152,4 @@ const searchByTitle = id => {
   `)
 }
 
-module.exports = { resetDb, createWholeBook, getBooks, getAuthors, searchByAuthor, searchByTitle, getBook, deleteBook, getGenres, updateBook }
+module.exports = { resetDb, createWholeBook, getBooks, getAuthors, searchByAuthor, searchByTitle, getBook, deleteBook, getGenres }
