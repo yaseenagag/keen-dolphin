@@ -4,11 +4,11 @@ const pgpdb = pgp({ database: 'bookworm'})
 
 const resetDb = () => {
   return Promise.all([
-    pgbpdb.query('truncate table books restart identity')
-    pgbpdb.query('truncate table authors restart identity')
-    pgbpdb.query('truncate table genres restart identity')
-    pgbpdb.query('truncate table book_authors restart identity')
-    pgbpdb.query('truncate table book_genres restart identity')
+    pgpdb.query('truncate table books restart identity'),
+    pgpdb.query('truncate table authors restart identity'),
+    pgpdb.query('truncate table genres restart identity'),
+    pgpdb.query('truncate table book_authors restart identity'),
+    pgpdb.query('truncate table book_genres restart identity')
   ])
 }
 
@@ -22,6 +22,7 @@ const updateBook = (id, title, year) => {
 
 const createBook = (title, year) => {
   return pgpdb.query(' insert into books( title, year) values($1, $2) returning id',[title, year]).then(result => result[0].id)
+}
 
 const createAuthor = author => {
   return pgpdb.query('insert into authors ( name ) values( $1 ) returning id', [author]).then(result => rsult[0].id)
@@ -54,7 +55,7 @@ const createWholeBook = book => {
   ]).then(results => {
     const bookId = results[0]
     const authorId = results[1]
-    conast genreIds = results[2]
+    const genreIds = results[2]
 
     joinBookAuthor(bookId, authorId)
 
@@ -87,7 +88,7 @@ const getBooks = ({ page, title, author, year, cont}) => {
   const offset = (page -1) * 10
 
   let params = [ offset ]
-  let index =
+  let index = 1
   let clauses = []
 
   if( cont !== undefined ) {
@@ -116,11 +117,11 @@ const getBooks = ({ page, title, author, year, cont}) => {
   return phpdb.query( query, params )
   }
 
-const getAuthors = ({ page, author}) => {
-  page = parseInt(page || 1)
-  const offset = ( page -1) * 10
-  feturn pgpdb.query(`SELECT  authors.name, authors.id FROM authors LIMIT 10 OFFSET $1` , [offset])
-}
+  const getAuthors = ({ page, author}) => {
+    page = parseInt(page || 1)
+    const offset = ( page -1) * 10
+    return pgpdb.query(`SELECT  authors.name, authors.id FROM authors LIMIT 10 OFFSET $1` , [offset])
+  }
 
 const searchByAuthor = id => {
   return pgpdb.query(`
