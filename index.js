@@ -16,5 +16,11 @@ server.get('/', (request, response) => {
   response.render('index.pug')
 })
 
+server.get('/allBooks', (request, response) => {
+  db.allBooks()
+  .then(book => response.json(book))
+
+})
+
 server.listen(3000)
 module.exports = server
