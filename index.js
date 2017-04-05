@@ -13,13 +13,21 @@ server.set('view engine', 'pug')
 
 
 server.get('/', (request, response) => {
-  response.render('index.pug')
+  db.getBook()
+  .then(books => {
+    response.render('index.pug', {books})
+  })
 })
 
-server.get('/allBooks', (request, response) => {
-  db.allBooks()
-  .then(book => response.json(book))
-
+server.get('/allBooks', (request, response, next) => {
+  db.getBook(request.query)
+  .then((books) => {
+    response.status(200).json(books)
+  })
+  .catch(error => {
+      console.error(error)
+      response.status(500).json({error})
+    })
 })
 
 server.listen(3000)
