@@ -5,6 +5,6 @@ CREATE TABLE books(
   author VARCHAR(255),
   year INTEGER,
   genre VARCHAR(255),
-  bookUrl VARCHAR,
+  bookurl VARCHAR,
   description VARCHAR
 );

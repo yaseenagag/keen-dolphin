@@ -9,7 +9,8 @@ block content
     .main
       for book in books
         ul.book
-          img#book-cover(src="'" + book.bookUrl + "'", alt='book cover')
+          li#book-cover
+            img(src=book.bookurl, alt='book cover')
           .book-info
             li#book-title= book.title
             li#book-author= book.author
