@@ -1,6 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const db = require('./config/database.js')
+const db = require('./database/database.js')
 const server = express()
 const pug = require('pug')
 const path = require('path')
@@ -13,14 +13,14 @@ server.set('view engine', 'pug')
 
 
 server.get('/', (request, response) => {
-  db.getBook()
+  db.getAllBooks()
   .then(books => {
     response.render('index.pug', {books})
   })
 })
 
 server.get('/allBooks', (request, response, next) => {
-  db.getBook(request.query)
+  db.getAllBooks(request.query)
   .then((books) => {
     response.status(200).json(books)
   })
