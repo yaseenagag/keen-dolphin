@@ -18,10 +18,10 @@ In this goal, we will be applying the CRUD pattern to the real-world system of a
 
 ## Specifications
 
-- [ ] Books have a title, author, and genre
+- [x] Books have a title, author, and genre
 - [ ] Users can...
   - [ ] Add books into the bookstore system via an admin page (_create_)
-  - [ ] See a list of books on the home page (_read_)
+  - [x] See a list of books on the home page (_read_)
   - [ ] Edit a book's title, author, or genre (_update_)
   - [ ] Delete a book from the bookstore (_delete_)
   - [ ] Search for books by title OR by author OR by genre (_read_)
@@ -30,16 +30,16 @@ In this goal, we will be applying the CRUD pattern to the real-world system of a
 - [ ] Book detail view is linked to from the listing and search pages
 - [ ] Search results are presented in a new page
 - [ ] Appropriate HTTP verbs are used for CRUD actions
-  - [ ] `GET` requests are only used for _read_ actions
+  - [x] `GET` requests are only used for _read_ actions
   - [ ] `POST` requests are only used for _create_ actions
   - [ ] `PUT` or `PATCH` requests are only used for _update_ actions
   - [ ] `DELETE` requests are only used for _delete_ actions
 - [ ] All views are rendered on the server using server-side templates written with [Pug][] or [EJS][]
-- [ ] Web server can be started with the command `npm start`
+- [x] Web server can be started with the command `npm start`
 - [ ] Test suite can be run with the command `npm test`
-- [ ] All code submissions are peer reviewed via GitHub PR by at least one other member of the team
-- [ ] Master is always in a stable state (tests passing, site functions)
-- [ ] The artifact produced is properly licensed, preferably with the [MIT license](https://opensource.org/licenses/MIT).
+- [x] All code submissions are peer reviewed via GitHub PR by at least one other member of the team
+- [x] Master is always in a stable state (tests passing, site functions)
+- [x] The artifact produced is properly licensed, preferably with the [MIT license](https://opensource.org/licenses/MIT).
 
 ### Stretch
 
