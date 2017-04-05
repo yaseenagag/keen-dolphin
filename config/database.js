@@ -13,6 +13,7 @@ const resetDb = () => {
   ])
 }
 
+
 const deleteBook = (id) => {
   return pgpdb.query('DELETE from books where id = ${id}; DELETE from book_authors where book_id = ${id};DELETE from book_genres where book_id = ${id};')
 }
