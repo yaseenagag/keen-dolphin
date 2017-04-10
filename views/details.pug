@@ -1,0 +1,18 @@
+extends layout.pug
+
+block content
+  .header
+    p#logo keen-dolphin's
+    h1 Simple Bookstore
+    hr
+  .main
+    h1 Book Detail View
+    ul.book
+      img#book-cover(src='http://placehold.it/150x225', alt='book cover')
+      .book-info
+        li#book-title= 'book.title'
+        li#book-author= 'by book.author'
+        li#book-genre= 'book.genre'
+        .buttons
+          button(type='button') Edit
+          button(type='button') Delete  
